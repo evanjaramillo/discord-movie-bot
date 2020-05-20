@@ -20,7 +20,9 @@ package com.ejar.dmb.core.license;
 import com.ejar.dmb.core.version.Version;
 import com.ejar.dmb.core.version.VersionUtils;
 
-public abstract class LicenseUtils {
+public final class LicenseUtils {
+
+    private LicenseUtils() {  }
 
     public static String getLicensePrintout() {
 

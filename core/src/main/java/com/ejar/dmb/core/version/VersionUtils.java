@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-public abstract class VersionUtils {
+public final class VersionUtils {
 
     static {
 
@@ -36,6 +36,8 @@ public abstract class VersionUtils {
     }
 
     private static final LocalDateTime BUILD_LOCAL_DATE_TIME;
+
+    private VersionUtils() {  }
 
     /**
      * Gets the LocalDateTime object of the current build.
