@@ -1,0 +1,18 @@
+package com.ejar.dmb.core.version;
+
+/*
+ * NOTE: This file is transient and will be replaced
+ * each time the code is built. If you need to make
+ * changes to this version template, please edit the
+ * VersionTemplate file in resources.
+ */
+
+public abstract class Version {
+
+    public static final String PROJECT_NAME  = "__PROJECT_NAME__";
+
+    public static final String BUILD_VERSION = "__BUILD_VERSION__";
+    public static final String POM_VERSION   = "__POM_VERSION__";
+    public static final String BUILD_TIME    = "__BUILD_TIME__";
+
+}

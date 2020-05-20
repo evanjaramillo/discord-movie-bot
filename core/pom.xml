@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>dmb</artifactId>
+    <groupId>com.ejar</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.ejar.dmb</groupId>
+  <artifactId>core</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Core</name>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>maven-replacer-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <file>src/main/resources/VersionTemplate</file>
+          <outputFile>src/main/java/com/ejar/dmb/core/version/Version.java</outputFile>
+          <replacements>
+
+            <replacement>
+              <token>__BUILD_VERSION__</token>
+              <value>${build.version}</value>
+            </replacement>
+
+            <replacement>
+              <token>__POM_VERSION__</token>
+              <value>${dmb.version}</value>
+            </replacement>
+
+            <replacement>
+              <token>__BUILD_TIME__</token>
+              <value>${maven.build.timestamp}</value>
+            </replacement>
+
+            <replacement>
+              <token>__PROJECT_NAME__</token>
+              <value>${project.parent.name}</value>
+            </replacement>
+
+          </replacements>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
