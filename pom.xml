@@ -23,6 +23,7 @@
     <junit.version>4.11</junit.version>
     <commons-cli.version>1.4</commons-cli.version>
     <apache-log4j.version>2.5</apache-log4j.version>
+    <commons-lang.version>3.5</commons-lang.version>
 
     <!-- Maven plugin versions -->
 
@@ -65,6 +66,12 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
         <version>${apache-log4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang.version}</version>
       </dependency>
 
       <dependency>

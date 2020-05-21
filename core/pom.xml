@@ -33,7 +33,41 @@
 
   </dependencies>
 
+  <profiles>
+
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <prof.dir>src/main/resources/dev/</prof.dir>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>prod</id>
+      <properties>
+        <prof.dir>src/main/resources/prod/</prof.dir>
+      </properties>
+    </profile>
+
+  </profiles>
+
   <build>
+
+    <resources>
+
+      <resource>
+        <directory>src/main/resources/all</directory>
+      </resource>
+
+      <resource>
+        <directory>${prof.dir}</directory>
+      </resource>
+
+    </resources>
+
     <plugins>
 
       <plugin>
@@ -84,7 +118,7 @@
           </execution>
         </executions>
         <configuration>
-          <file>src/main/resources/VersionTemplate</file>
+          <file>src/main/resources/all/VersionTemplate</file>
           <outputFile>src/main/java/com/ejar/dmb/core/version/Version.java</outputFile>
           <replacements>
 

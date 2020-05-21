@@ -24,6 +24,7 @@ import com.ejar.dmb.core.version.VersionUtils;
 
 import org.apache.commons.cli.*;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -163,25 +164,23 @@ public class App
             }
 
             logger.info("Started {}", Version.PROJECT_NAME);
-            logger.debug("debug");
-            logger.trace("trace");
-            logger.warn("warn");
-            logger.error("error");
 
 
         } catch (ParseException e) {
 
+            logger.error("Exception encountered while processing command-line arguments. \n{}",
+                    e.getMessage());
 
-            System.out.println("Exception while parsing commandline arguments.");
-
+            logger.debug("Stack trace: \n{}", ExceptionUtils.getStackTrace(e));
 
         } catch (Throwable e) {
 
-            logger.error("Unhandled Exception: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Unhandled Exception: {}",
+                    e.getMessage());
+
+            logger.debug("Stack trace: \n{}", ExceptionUtils.getStackTrace(e));
 
         }
-
 
     }
 
