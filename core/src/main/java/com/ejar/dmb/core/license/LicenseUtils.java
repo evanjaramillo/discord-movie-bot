@@ -24,6 +24,12 @@ public final class LicenseUtils {
 
     private LicenseUtils() {  }
 
+    /**
+     * Gets the license String to display to users.
+     *
+     * @return
+     *      String
+     */
     public static String getLicensePrintout() {
 
         return  "    " + Version.PROJECT_NAME + "\n" +

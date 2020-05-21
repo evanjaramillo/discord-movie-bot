@@ -51,4 +51,16 @@ public final class VersionUtils {
 
     }
 
+    /**
+     * Gets the version String to display to users.
+     *
+     * @return
+     *      String
+     */
+    public static String getVersionPrintout() {
+
+        return "    " + Version.PROJECT_NAME + " v" + Version.BUILD_VERSION;
+
+    }
+
 }
