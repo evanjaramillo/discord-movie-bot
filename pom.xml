@@ -24,6 +24,7 @@
     <commons-cli.version>1.4</commons-cli.version>
     <apache-log4j.version>2.5</apache-log4j.version>
     <commons-lang.version>3.5</commons-lang.version>
+    <jda.version>3.8.3_464</jda.version>
 
     <!-- Maven plugin versions -->
 
@@ -72,6 +73,12 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>net.dv8tion</groupId>
+        <artifactId>JDA</artifactId>
+        <version>${jda.version}</version>
       </dependency>
 
       <dependency>
@@ -146,5 +153,13 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <repositories>
+    <repository>
+      <id>jcenter</id>
+      <name>jcenter-bintray</name>
+      <url>https://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
 
 </project>
