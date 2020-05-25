@@ -55,10 +55,12 @@ public class DiscordConnector {
 
         logger.info("Creating JDA instance...");
 
-        new JDABuilder(this.options.getToken())
+        this.jda = new JDABuilder()
+                .setToken(this.options.getToken())
+                .setCompressionEnabled(this.options.isCompressionEnabled())
+                .setAutoReconnect(this.options.isAutoReconnect())
                 .build();
 
-        logger.info("Created JDA instance: {}", this.jda.toString());
     }
 
 }

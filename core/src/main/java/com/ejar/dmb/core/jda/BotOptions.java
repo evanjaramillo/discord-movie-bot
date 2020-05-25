@@ -17,19 +17,50 @@ package com.ejar.dmb.core.jda;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
+import java.io.File;
+import java.io.IOException;
+
 public class BotOptions {
 
+    static {
+
+        YML_OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
+
+    }
+
     private String token;
+    private boolean compressionEnabled;
+    private boolean autoReconnect;
+
+    private static final ObjectMapper YML_OBJECT_MAPPER;
 
     public BotOptions() {
 
+        super();
         this.init();
+
+    }
+
+    public BotOptions fromConfigurationFile(File f) throws Exception {
+
+        return YML_OBJECT_MAPPER.readValue(f, BotOptions.class);
 
     }
 
     private void init() {
 
         token = "NO TOKEN";
+        this.compressionEnabled = true;
+        this.autoReconnect = false;
+
+    }
+
+    public void writeCurrentConfiguration(File f) throws IOException {
+
+        YML_OBJECT_MAPPER.writeValue(f, this);
 
     }
 
@@ -42,6 +73,30 @@ public class BotOptions {
     public void setToken(String token) {
 
         this.token = token;
+
+    }
+
+    public boolean isCompressionEnabled() {
+
+        return compressionEnabled;
+
+    }
+
+    public void setCompressionEnabled(boolean compressionEnabled) {
+
+        this.compressionEnabled = compressionEnabled;
+
+    }
+
+    public boolean isAutoReconnect() {
+
+        return autoReconnect;
+
+    }
+
+    public void setAutoReconnect(boolean autoReconnect) {
+
+        this.autoReconnect = autoReconnect;
 
     }
 

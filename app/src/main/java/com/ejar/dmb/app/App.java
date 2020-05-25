@@ -17,6 +17,8 @@ package com.ejar.dmb.app;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import com.ejar.dmb.core.jda.BotOptions;
+import com.ejar.dmb.core.jda.DiscordConnector;
 import com.ejar.dmb.core.license.LicenseUtils;
 import com.ejar.dmb.core.logging.LoggingUtil;
 import com.ejar.dmb.core.version.Version;
@@ -27,6 +29,8 @@ import org.apache.commons.cli.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
 
 public class App
 {
@@ -164,6 +168,31 @@ public class App
             }
 
             logger.info("Started {}", Version.PROJECT_NAME);
+
+            File configuration = new File("./dmb_cfg.yml");
+
+            BotOptions botOptions = new BotOptions();
+
+            if (!configuration.exists()) {
+
+                logger.info("No configuration file found. Creating from default options: {}",
+                        configuration.getAbsolutePath());
+
+                botOptions.writeCurrentConfiguration(configuration);
+
+
+            } else {
+
+                logger.info("Reading in configuration file: {}",
+                        configuration.getAbsolutePath());
+
+            }
+
+            botOptions = new BotOptions()
+                    .fromConfigurationFile(configuration);
+
+            DiscordConnector c = new DiscordConnector(botOptions);
+            c.connect();
 
 
         } catch (ParseException e) {
