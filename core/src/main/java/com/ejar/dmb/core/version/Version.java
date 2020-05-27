@@ -13,6 +13,6 @@ public abstract class Version {
 
     public static final String BUILD_VERSION = "0.5";
     public static final String POM_VERSION   = "1.0-SNAPSHOT";
-    public static final String BUILD_TIME    = "2020-05-25T01:31:27Z";
+    public static final String BUILD_TIME    = "2020-05-27T01:39:34Z";
 
 }
