@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
+import java.util.LinkedList;
 
 public class DiscordConnector {
 
@@ -48,6 +49,7 @@ public class DiscordConnector {
     private void init() {
 
         this.options = new BotOptions();
+        this.listener = new BotListener();
 
     }
 
@@ -59,6 +61,7 @@ public class DiscordConnector {
                 .setToken(this.options.getToken())
                 .setCompressionEnabled(this.options.isCompressionEnabled())
                 .setAutoReconnect(this.options.isAutoReconnect())
+                .addEventListener(this.listener)
                 .build();
 
     }

@@ -106,6 +106,14 @@ public class App
 
         opts.addOption(logging);
 
+        Option start = Option.builder("start")
+                .hasArg(false)
+                .required(false)
+                .desc("Starts the application.")
+                .build();
+
+        opts.addOption(start);
+
         return opts;
 
     }
@@ -179,7 +187,6 @@ public class App
                         configuration.getAbsolutePath());
 
                 botOptions.writeCurrentConfiguration(configuration);
-
 
             } else {
 
