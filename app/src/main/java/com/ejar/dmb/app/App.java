@@ -198,7 +198,8 @@ public class App
             botOptions = new BotOptions()
                     .fromConfigurationFile(configuration);
 
-            DiscordConnector c = new DiscordConnector(botOptions);
+            DiscordConnector c = DiscordConnector.getInstance();
+            c.setOptions(botOptions);
             c.connect();
 
 
