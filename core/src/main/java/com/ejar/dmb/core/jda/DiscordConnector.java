@@ -158,7 +158,7 @@ public class DiscordConnector {
 
     public void setSleepState() {
 
-        Presence p = DiscordConnector.getInstance().getJda().getPresence();
+        Presence p = this.getJda().getPresence();
         p.setPresence(OnlineStatus.IDLE, Game.watching(
                 this.wittySleep[ThreadLocalRandom.current().nextInt(0, this.wittySleep.length)]
         ));
@@ -167,7 +167,7 @@ public class DiscordConnector {
 
     public void setWakeState(User u) {
 
-        Presence p = DiscordConnector.getInstance().getJda().getPresence();
+        Presence p = this.getJda().getPresence();
         p.setPresence(OnlineStatus.ONLINE, Game.listening(u.getName() + "'s command!"));
 
     }
