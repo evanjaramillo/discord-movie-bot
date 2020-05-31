@@ -19,50 +19,156 @@ package com.ejar.dmb.core.jda;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.managers.Presence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
-import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DiscordConnector {
 
     private final Logger logger = LogManager.getLogger();
 
+    private static final DiscordConnector instance = new DiscordConnector();
+
+    private final String[] wittySleep = {
+            "my eyelids ...",
+            "the sheep ...",
+            "my dreams ..."
+    };
+
+    private final String[] wittyWake = {
+            "whoms't awoke me from my slumber?!"
+    };
+
     private BotOptions options;
     private BotListener listener;
     private JDA jda;
 
-    public DiscordConnector() {
+    private ControllingUserFacilitator controllingUserFacilitator;
+
+    private ReentrantLock controllingUserLock;
+
+    private DiscordConnector() {
 
         this.init();
 
     }
 
-    public DiscordConnector(BotOptions options) {
+    public static DiscordConnector getInstance() {
 
-        this.init();
-        this.options = options;
+        return instance;
 
     }
 
     private void init() {
 
         this.options = new BotOptions();
-        this.listener = new BotListener();
+
+        this.controllingUserLock = new ReentrantLock();
+
+        this.controllingUserFacilitator = new ControllingUserFacilitator();
 
     }
 
-    public void connect() throws LoginException {
+    public void connect() throws LoginException,
+                                 InterruptedException
+    {
 
         logger.info("Creating JDA instance...");
 
-        this.jda = new JDABuilder()
-                .setToken(this.options.getToken())
-                .setCompressionEnabled(this.options.isCompressionEnabled())
-                .setAutoReconnect(this.options.isAutoReconnect())
-                .addEventListener(this.listener)
-                .build();
+
+            this.jda = new JDABuilder()
+                    .setToken(this.options.getToken())
+                    .setCompressionEnabled(this.options.isCompressionEnabled())
+                    .setAutoReconnect(this.options.isAutoReconnect())
+                    .build()
+                    .awaitReady();
+
+            this.listener = new BotListener();
+
+            this.jda.addEventListener(this.listener);
+
+    }
+
+    public BotOptions getOptions() {
+
+        return options;
+
+    }
+
+    public void setOptions(BotOptions options) {
+
+        this.options = options;
+
+    }
+
+    public JDA getJda() {
+
+        return jda;
+
+    }
+
+    public User getControllingUser() {
+
+        controllingUserLock.lock();
+
+        try {
+
+            return this.controllingUserFacilitator.getUser();
+
+        } finally {
+
+            controllingUserLock.unlock();
+
+        }
+
+    }
+
+    public UserControlCaveats setControllingUser(User controllingUser) {
+
+        controllingUserLock.lock();
+
+        UserControlCaveats c = UserControlCaveats.USER_CONTROL_FAILURE_UNKNOWN;
+
+        try {
+
+            User current = this.getControllingUser();
+
+            c = this.controllingUserFacilitator.setUser(controllingUser);
+
+            logger.info("{}", UserControlCaveats.getFailureContext(controllingUser, current, c));
+
+
+
+        } finally {
+
+            controllingUserLock.unlock();
+
+        }
+
+        return c;
+
+    }
+
+    public void setSleepState() {
+
+        Presence p = DiscordConnector.getInstance().getJda().getPresence();
+        p.setPresence(OnlineStatus.IDLE, Game.watching(
+                this.wittySleep[ThreadLocalRandom.current().nextInt(0, this.wittySleep.length)]
+        ));
+
+    }
+
+    public void setWakeState(User u) {
+
+        Presence p = DiscordConnector.getInstance().getJda().getPresence();
+        p.setPresence(OnlineStatus.ONLINE, Game.listening(u.getName() + "'s command!"));
 
     }
 
