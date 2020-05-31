@@ -48,6 +48,7 @@ public class DiscordConnector {
 
     private BotOptions options;
     private BotListener listener;
+    private BotMessageListener messageListener;
     private JDA jda;
 
     private ControllingUserFacilitator controllingUserFacilitator;
@@ -82,17 +83,17 @@ public class DiscordConnector {
 
         logger.info("Creating JDA instance...");
 
-
-            this.jda = new JDABuilder()
+        this.jda = new JDABuilder()
                     .setToken(this.options.getToken())
                     .setCompressionEnabled(this.options.isCompressionEnabled())
                     .setAutoReconnect(this.options.isAutoReconnect())
                     .build()
                     .awaitReady();
 
-            this.listener = new BotListener();
+        this.setSleepState();
 
-            this.jda.addEventListener(this.listener);
+        this.messageListener = new BotMessageListener();
+        this.jda.addEventListener(this.messageListener);
 
     }
 

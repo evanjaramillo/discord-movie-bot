@@ -17,15 +17,13 @@ package com.ejar.dmb.core.jda;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
-
+@Deprecated
 public class BotListener extends ListenerAdapter {
 
     private final Logger logger = LogManager.getLogger();
@@ -43,44 +41,14 @@ public class BotListener extends ListenerAdapter {
 
     }
 
+
+
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
         super.onGuildMessageReceived(event);
 
-        if (event.getAuthor().isBot()) {
 
-            return;
-
-        }
-
-        String[] msg = event.getMessage().getContentRaw().split("\\s+");
-
-        User userCandidate = event.getAuthor();
-
-        logger.debug("Guild message received from: {}, member: {}, content: {}",
-                userCandidate.getName(),
-                event.getMember(),
-                event.getMessage());
-
-        if (msg.length >= 1 && !msg[0].toLowerCase().equals("%dmb%")) {
-
-            return;
-
-        }
-
-        User current = DiscordConnector.getInstance().getControllingUser();
-
-        UserControlCaveats c = DiscordConnector.getInstance().setControllingUser(userCandidate);
-
-        String s = UserControlCaveats.getFailureContext(userCandidate, current, c);
-
-        event.getGuild().getTextChannelById(event.getMessage().getTextChannel().getId())
-                .sendMessage(s).queue();
-
-        DiscordConnector.getInstance().setWakeState(userCandidate);
-
-        String[] arguments = Arrays.copyOfRange(msg, 1, msg.length);
 
 
 
