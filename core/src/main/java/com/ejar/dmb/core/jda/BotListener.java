@@ -28,8 +28,6 @@ import java.util.Arrays;
 
 public class BotListener extends ListenerAdapter {
 
-
-
     private final Logger logger = LogManager.getLogger();
 
     public BotListener() { }
@@ -75,14 +73,10 @@ public class BotListener extends ListenerAdapter {
 
         UserControlCaveats c = DiscordConnector.getInstance().setControllingUser(userCandidate);
 
-        if (UserControlCaveats.isFailure(c)) {
+        String s = UserControlCaveats.getFailureContext(userCandidate, current, c);
 
-            String s = UserControlCaveats.getFailureContext(userCandidate, current, c);
-
-            event.getGuild().getTextChannelById(event.getMessage().getTextChannel().getId())
-                    .sendMessage(s);
-
-        }
+        event.getGuild().getTextChannelById(event.getMessage().getTextChannel().getId())
+                .sendMessage(s).queue();
 
         DiscordConnector.getInstance().setWakeState(userCandidate);
 

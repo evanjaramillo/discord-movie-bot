@@ -50,15 +50,18 @@ public enum UserControlCaveats {
 
         StringBuilder builder = new StringBuilder();
 
+        String current = (currentUser == null ? "null" : currentUser.getName());
+        String candidate = (userCandidate == null ? "null" : userCandidate.getName());
+
         switch (ucc) {
 
             case USER_CONTROL_SUCCESS:
 
                 builder
                         .append("Successfully switched control from '")
-                        .append(currentUser.getName())
+                        .append(current)
                         .append("' to '")
-                        .append(userCandidate.getName())
+                        .append(candidate)
                         .append(".");
 
                 break;
@@ -67,11 +70,11 @@ public enum UserControlCaveats {
 
                 builder
                         .append("Failed to switch control from '")
-                        .append(currentUser.getName())
+                        .append(current)
                         .append("' to '")
-                        .append(userCandidate.getName())
+                        .append(candidate)
                         .append("'. ")
-                        .append(currentUser.getName())
+                        .append(current)
                         .append(" has not yielded control.");
 
                 break;
@@ -80,9 +83,9 @@ public enum UserControlCaveats {
 
                 builder
                         .append("Failed to switch control from '")
-                        .append(currentUser.getName())
+                        .append(current)
                         .append("' to '")
-                        .append(userCandidate.getName())
+                        .append(candidate)
                         .append("'. Already set.");
 
                 break;
@@ -92,9 +95,9 @@ public enum UserControlCaveats {
 
                 builder
                         .append("Failed to switch control from '")
-                        .append(currentUser.getName())
+                        .append(current)
                         .append("' to '")
-                        .append(userCandidate.getName())
+                        .append(candidate)
                         .append("'. Unknown problem.");
 
         }
