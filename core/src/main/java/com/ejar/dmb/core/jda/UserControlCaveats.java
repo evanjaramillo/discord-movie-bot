@@ -62,7 +62,7 @@ public enum UserControlCaveats {
                         .append(current)
                         .append("' to '")
                         .append(candidate)
-                        .append(".");
+                        .append("'.");
 
                 break;
 
