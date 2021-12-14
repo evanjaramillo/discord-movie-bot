@@ -22,7 +22,7 @@
 
     <junit.version>4.13.1</junit.version>
     <commons-cli.version>1.4</commons-cli.version>
-    <apache-log4j.version>2.13.3</apache-log4j.version>
+    <apache-log4j.version>2.16.0</apache-log4j.version>
     <commons-lang.version>3.5</commons-lang.version>
     <jackson-databind.version>2.2.3</jackson-databind.version>
     <jackson-yaml.version>2.10.4</jackson-yaml.version>
