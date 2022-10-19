@@ -25,7 +25,7 @@
     <apache-log4j.version>2.13.3</apache-log4j.version>
     <commons-lang.version>3.5</commons-lang.version>
     <jackson-databind.version>2.2.3</jackson-databind.version>
-    <jackson-yaml.version>2.10.4</jackson-yaml.version>
+    <jackson-yaml.version>2.13.4.1</jackson-yaml.version>
     <jda.version>3.8.3_464</jda.version>
 
     <!-- Maven plugin versions -->
